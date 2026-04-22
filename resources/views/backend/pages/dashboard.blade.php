@@ -17,8 +17,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Aktivitas User</h6>
-                                    <h6 class="font-extrabold mb-0">112.000</h6>
+                                    <h6 class="text-muted font-semibold">Aktifasi User</h6>
+                                    <h6 class="font-extrabold mb-0">
+                                    {{ number_format($summary['aktivitas_user']) }}
+                                </h6>
                                 </div>
                             </div>
                         </div>
@@ -34,8 +36,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Data User</h6>
-                                    <h6 class="font-extrabold mb-0">183.000</h6>
+                                    <h6 class="text-muted font-semibold">Data Petugas</h6>
+                                    <h6 class="font-extrabold mb-0">
+                                    {{ number_format($summary['total_user']) }}
+                                </h6>
                                 </div>
                             </div>
                         </div>
@@ -51,8 +55,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Data Petugas</h6>
-                                    <h6 class="font-extrabold mb-0">80.000</h6>
+                                    <h6 class="text-muted font-semibold">Total Tanggapan</h6>
+                                    <h6 class="font-extrabold mb-0">
+                                    {{ number_format($summary['total_tanggapan']) }}
+                                </h6>
                                 </div>
                             </div>
                         </div>
@@ -68,8 +74,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Data Laporan</h6>
-                                    <h6 class="font-extrabold mb-0">112</h6>
+                                    <h6 class="text-muted font-semibold">Laporan Aduan</h6>
+                                    <h6 class="font-extrabold mb-0">
+                                    {{ number_format($summary['total_pengaduan']) }}
+                                </h6>
                                 </div>
                             </div>
                         </div>
