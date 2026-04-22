@@ -68,11 +68,11 @@
                                                     <div class="avatar avatar-md">
                                                         <img src="backend/images/faces/5.jpg">
                                                     </div>
-                                                    <p class="font-bold ms-3 mb-0">Si Cantik</p>
+                                                    <p class="font-bold ms-3 mb-0">Siti Romlah</p>
                                                 </div>
                                             </td>
                                             <td class="col-auto">
-                                                <p class="mb-0">Congratulations on your graduation!</p>
+                                                <p class="mb-0">bagaimana cara kerjanya ini?</p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -81,11 +81,11 @@
                                                     <div class="avatar avatar-md">
                                                         <img src="backend/images/faces/2.jpg">
                                                     </div>
-                                                    <p class="font-bold ms-3 mb-0">Si Ganteng</p>
+                                                    <p class="font-bold ms-3 mb-0">Iwan Simanjuntak</p>
                                                 </div>
                                             </td>
                                             <td class="col-auto">
-                                                <p class="mb-0">Wow amazing design! Can you make another tutorial for this design?</p>
+                                                <p class="mb-0">Gokil webnya pertahankn terus ya!</p>
                                             </td>
                                         </tr>
                                     </tbody>

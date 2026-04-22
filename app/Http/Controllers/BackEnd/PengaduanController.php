@@ -8,7 +8,7 @@ use App\Models\Tanggapan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\ConfirmMail;
 use Barryvdh\DomPDF\Facade as PDF;
 
@@ -33,13 +33,13 @@ class PengaduanController extends Controller
         return view('backend.pages.pengaduan.detail', $data);
     }
 
-    // public function update(Request $req, $id)
-    // {
-    //     Pengaduan::where(['id' => $id])->update([
-    //         'status' => $req->status,
-    //     ]);
-    //     return redirect(route('pengaduan'))->with('status', 'Data Pengaduan Berhasil Diubah');
-    // }
+     public function update(Request $req, $id)
+     {
+         Pengaduan::where(['id' => $id])->update([
+             'status' => $req->status,
+        ]);
+        return redirect(route('pengaduan'))->with('status', 'Data Pengaduan Berhasil Diubah');
+     }
 
     public function tanggapan($id)
     {
@@ -74,9 +74,16 @@ class PengaduanController extends Controller
     }
 
     public function createPDF()
-    {
-        $pengaduan = Pengaduan::all();
-        $pdf = PDF::loadView('backend.pages.pengaduan.pengaduan_pdf', ['pengaduan' => $pengaduan]);
-        return $pdf->download('laporan-pengaduan.pdf');
-    }
+{
+    $pengaduan = Pengaduan::with('tanggapan')->get();
+
+    $pdf = PDF::loadView('backend.pages.pengaduan.pengaduan_pdf', compact('pengaduan'))
+        ->setPaper('A4', 'landscape')
+        ->setOptions([
+            'isRemoteEnabled' => true,
+            'isHtml5ParserEnabled' => true,
+        ]);
+
+    return $pdf->download('laporan-pengaduan.pdf');
+}
 }

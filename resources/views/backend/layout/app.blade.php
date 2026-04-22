@@ -45,7 +45,7 @@
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
                         <p><?= date('Y') ?> &copy; Pengaduan Sekolah | SMK Taruna Bhakti</p>
-                    </div>
+                    </div>  
                     <div class="float-end">
                         <p>Dashboard Develop<span class="text-danger"></span> by <a
                                 h6>SakaDev</a></p>
