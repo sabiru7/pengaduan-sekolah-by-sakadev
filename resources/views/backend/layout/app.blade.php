@@ -47,8 +47,8 @@
                         <p><?= date('Y') ?> &copy; Pengaduan Sekolah | SMK Taruna Bhakti</p>
                     </div>
                     <div class="float-end">
-                        <p>Dashboard Theme<span class="text-danger"></span> by <a
-                                href="http://ahmadsaugi.com">A. Saugi</a></p>
+                        <p>Dashboard Develop<span class="text-danger"></span> by <a
+                                h6>SakaDev</a></p>
                     </div>
                 </div>
             </footer>
