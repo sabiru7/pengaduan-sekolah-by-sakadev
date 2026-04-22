@@ -3,92 +3,28 @@
 <div class="page-heading">
     <h3>Dashboard</h3>
 </div>
+
 <div class="page-content">
     <section class="row">
         <div class="col-12 col-lg-9">
+
+            {{-- ✅ GANTI CARD JADI CHART --}}
             <div class="row">
-                <div class="col-6 col-lg-3 col-md-6">
+                <div class="col-20">
                     <div class="card">
-                        <div class="card-body px-3 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="stats-icon purple">
-                                        <i class="iconly-boldShow"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Aktifasi User</h6>
-                                    <h6 class="font-extrabold mb-0">
-                                    {{ number_format($summary['aktivitas_user']) }}
-                                </h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-3 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="stats-icon blue">
-                                        <i class="iconly-boldProfile"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Data Petugas</h6>
-                                    <h6 class="font-extrabold mb-0">
-                                    {{ number_format($summary['total_user']) }}
-                                </h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-3 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="stats-icon green">
-                                        <i class="iconly-boldAdd-User"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Total Tanggapan</h6>
-                                    <h6 class="font-extrabold mb-0">
-                                    {{ number_format($summary['total_tanggapan']) }}
-                                </h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body px-3 py-4-5">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="stats-icon red">
-                                        <i class="iconly-boldBookmark"></i>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Laporan Aduan</h6>
-                                    <h6 class="font-extrabold mb-0">
-                                    {{ number_format($summary['total_pengaduan']) }}
-                                </h6>
-                                </div>
-                            </div>
+                        <div class="card-body">
+                            <canvas id="dashboardChart" height="75"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {{-- ✅ SISANYA TETAP --}}
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Log Aktivitas User  </h4>
+                            <h4>Log Aktivitas User</h4>
                         </div>
                         <div class="card-body">
                             <table class="table">
@@ -109,6 +45,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-12 col-xl-12">
                     <div class="card">
@@ -135,7 +72,7 @@
                                                 </div>
                                             </td>
                                             <td class="col-auto">
-                                                <p class=" mb-0">Congratulations on your graduation!</p>
+                                                <p class="mb-0">Congratulations on your graduation!</p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -148,9 +85,7 @@
                                                 </div>
                                             </td>
                                             <td class="col-auto">
-                                                <p class=" mb-0">Wow amazing design! Can you make another
-                                                    tutorial for
-                                                    this design?</p>
+                                                <p class="mb-0">Wow amazing design! Can you make another tutorial for this design?</p>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -160,7 +95,10 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
+        {{-- SIDEBAR TETAP --}}
         <div class="col-12 col-lg-3">
             <div class="card">
                 <div class="card-body py-4 px-5">
@@ -175,6 +113,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="card">
                 <div class="card-header">
                     <h4>Recent Messages</h4>
@@ -189,6 +128,7 @@
                             <h6 class="text-muted mb-0">@johnducky</h6>
                         </div>
                     </div>
+
                     <div class="recent-message d-flex px-4 py-3">
                         <div class="avatar avatar-lg">
                             <img src="backend/images/faces/5.jpg">
@@ -198,6 +138,7 @@
                             <h6 class="text-muted mb-0">@imdean</h6>
                         </div>
                     </div>
+
                     <div class="recent-message d-flex px-4 py-3">
                         <div class="avatar avatar-lg">
                             <img src="backend/images/faces/1.jpg">
@@ -207,14 +148,60 @@
                             <h6 class="text-muted mb-0">@dodoljohn</h6>
                         </div>
                     </div>
+
                     <div class="px-4">
-                        <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Start
-                            Conversation</button>
+                        <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>
+                            Start Conversation
+                        </button>
                     </div>
                 </div>
             </div>
-            
         </div>
+
     </section>
 </div>
+
+{{-- ✅ SCRIPT --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="application/json" id="summary-data">
+{!! json_encode($summary) !!}
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const dataSummary = JSON.parse(document.getElementById('summary-data').textContent);
+
+    const ctx = document.getElementById('dashboardChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Aktivasi', 'Total User', 'Total Tanggapan', 'Laporan Aduan'],
+            datasets: [{
+                label: 'Jumlah',
+                data: [
+                    dataSummary.aktivitas_user ?? 0,
+                    dataSummary.total_user ?? 0,
+                    dataSummary.total_tanggapan ?? 0,
+                    dataSummary.total_pengaduan ?? 0
+                ],
+                backgroundColor: [
+                    '#6f42c1',
+                    '#0d6efd',
+                    '#198754',
+                    '#dc3545'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+
+});
+</script>
+
 @endsection
