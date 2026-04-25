@@ -10,7 +10,7 @@ use App\Http\Controllers\BackEnd\DataPetugasController;
 use App\Http\Controllers\BackEnd\DataUserController;
 use App\Http\Controllers\BackEnd\PengaduanController;
 use App\Http\Controllers\BackEnd\TanggapanController;
-
+use App\Http\Controllers\ChatController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -81,13 +81,25 @@ Route::middleware(['auth', 'rolecheck:admin'])
 // =====================
 // USER AREA
 // =====================
+Route::prefix('site')->group(function () {
+
+    // 🌍 CHAT (TANPA LOGIN)
+    Route::get('/chat', function () {
+        return view('chat');
+    })->name('chat');
+
+    Route::post('/chat/send', [ChatController::class, 'send'])
+        ->name('chat.send');
+
+});
+
+
 Route::middleware(['auth', 'rolecheck:user'])
     ->prefix('site')
     ->group(function () {
 
         Route::get('/sukses', [SiteController::class, 'success'])->name('success');
 
-        // Pengaduan CRUD
         Route::get('/buat-pengaduan', [SiteController::class, 'create']);
         Route::post('/buat-pengaduan', [SiteController::class, 'store'])->name('pengaduan.store');
 
@@ -95,6 +107,7 @@ Route::middleware(['auth', 'rolecheck:user'])
         Route::put('/pengaduan/{id}/update', [SiteController::class, 'update'])->name('pengaduan.update');
         Route::delete('/pengaduan/{id}/delete', [SiteController::class, 'destroy'])->name('pengaduan.delete');
 
-        // Detail pengaduan
         Route::get('/pengaduan/{id}', [SiteController::class, 'handleDetail'])->name('detail.pengaduan');
+
     });
+

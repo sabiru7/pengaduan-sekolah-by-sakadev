@@ -169,6 +169,173 @@
         </div>
     </section>
 
+ <!-- 🔥 CHAT BUTTON -->
+<div onclick="toggleChat()" style="
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#4f46e5;
+    color:white;
+    padding:14px;
+    border-radius:50%;
+    cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+    z-index:999;
+">
+    💬
+</div>
+
+<!-- 🔥 CHAT BOX -->
+<div id="chatBox" style="
+    display:none;
+    position:fixed;
+    bottom:80px;
+    right:20px;
+    width:300px;
+    background:white;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    overflow:hidden;
+    font-family:sans-serif;
+    z-index:999;
+">
+
+    <!-- HEADER -->
+    <div style="
+        background:#4f46e5;
+        color:white;
+        padding:10px;
+        font-weight:bold;
+    ">
+        🤖 AI Assistant
+    </div>
+
+    <!-- CHAT -->
+    <div id="messages" style="
+        height:250px;
+        overflow-y:auto;
+        padding:10px;
+        background:#f9fafb;
+    "></div>
+
+    <!-- INPUT -->
+    <div style="display:flex; border-top:1px solid #eee;">
+        <input id="msg" placeholder="Tulis pesan..."
+            style="flex:1; border:none; padding:10px; outline:none;"
+        >
+        <button onclick="sendMsg()" style="
+            background:#4f46e5;
+            color:white;
+            border:none;
+            padding:0 15px;
+            cursor:pointer;
+        ">
+            ➤
+        </button>
+    </div>
+
+</div>
+
+<script>
+let firstOpen = true;
+
+// toggle chat
+function toggleChat(){
+    let box = document.getElementById('chatBox');
+    let isHidden = box.style.display === 'none';
+
+    box.style.display = isHidden ? 'block' : 'none';
+
+    // greeting pertama
+    if (isHidden && firstOpen) {
+        addMsg('well well well. mau dibantu apa untuk pengaduan anda?', 'bot');
+        firstOpen = false;
+    }
+}
+
+// tambah pesan
+function addMsg(text, type){
+    let wrap = document.getElementById('messages');
+    let el = document.createElement('div');
+
+    el.style.display = 'flex';
+    el.style.margin = '8px 0';
+    el.style.justifyContent = type === 'user' ? 'flex-end' : 'flex-start';
+
+    el.innerHTML = `
+        <div style="
+            max-width:70%;
+            padding:8px 10px;
+            border-radius:10px;
+            font-size:13px;
+            background:${type==='user' ? '#4f46e5' : '#e5e7eb'};
+            color:${type==='user' ? 'white' : 'black'};
+            white-space:pre-line;
+        ">
+            ${text}
+        </div>
+    `;
+
+    wrap.appendChild(el);
+    wrap.scrollTop = wrap.scrollHeight;
+}
+
+// kirim pesan
+function sendMsg(){
+    let input = document.getElementById('msg');
+    let text = input.value.trim();
+
+    if(!text) return;
+
+    addMsg(text,'user');
+    input.value='';
+
+    // loading
+    let wrap = document.getElementById('messages');
+    let loading = document.createElement('div');
+    loading.id = 'loading';
+    loading.style.margin = '8px 0';
+    loading.innerHTML = `<span style="background:#e5e7eb;padding:8px;border-radius:8px;">...</span>`;
+    wrap.appendChild(loading);
+
+    fetch('/site/chat/send',{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'X-CSRF-TOKEN':document.querySelector('meta[name="csrf-token"]').content
+        },
+        body:JSON.stringify({message:text})
+    })
+    .then(async res=>{
+        let data = await res.json();
+
+        document.getElementById('loading')?.remove();
+
+        if(!res.ok){
+            addMsg('Error: ' + data.response, 'bot');
+            return;
+        }
+
+        addMsg(data.response,'bot');
+    })
+    .catch(()=>{
+        document.getElementById('loading')?.remove();
+        addMsg('Server error ⚠️', 'bot');
+    });
+}
+
+// enter kirim
+document.addEventListener("DOMContentLoaded", function(){
+    document.getElementById("msg").addEventListener("keypress", function(e){
+        if(e.key === "Enter"){
+            sendMsg();
+        }
+    });
+});
+</script>
+<!-- END CHAT BOT -->
+
+
     <!-- CONTENT -->
     <div style="margin-top:100px;">
         @yield('content')
