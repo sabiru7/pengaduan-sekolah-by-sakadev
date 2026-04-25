@@ -105,6 +105,7 @@
                 </nav>
             </div>
         </section>
+
         <!-- end header -->
         @yield('content')
         <!-- footer -->
@@ -118,7 +119,66 @@
         </footer>
         <!-- end footer -->
     </div>
+<!DOCTYPE html>
+<html lang="en" id="home">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title')</title>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <link rel="stylesheet" href="{{asset('assets/app.css')}}">
+    <link rel="stylesheet" href="{{ asset('backend/vendors/fontawesome/all.min.css') }}">
+</head>
+
+<body>
+<div id="app">
+
+    <!-- HEADER -->
+    <section class="w-full px-6 z-50 fixed bg-white">
+        <div class="mx-auto max-w-7xl">
+            <nav class="relative h-24" x-data="{ showMenu: false }">
+                <div class="flex items-center justify-between h-24 border-b">
+
+                    <a href="{{url('/')}}">
+                        <img src="{{asset('assets/index.png')}}" class="w-10">
+                    </a>
+
+                    <div class="hidden md:flex space-x-4">
+                        <a href="/">Beranda</a>
+                        <a href="/#about">Tentang</a>
+                        <a href="/#faq">FAQ</a>
+                    </div>
+
+                    <div>
+                        @guest
+                            <a href="/login" class="bg-indigo-600 text-white px-4 py-2">Login</a>
+                        @endguest
+
+                        @auth
+                            <a href="/site/buat-pengaduan" class="bg-indigo-600 text-white px-4 py-2">
+                                Buat Pengaduan
+                            </a>
+                        @endauth
+                    </div>
+
+                </div>
+            </nav>
+        </div>
+    </section>
+
+    <!-- CONTENT -->
+    <div style="margin-top:100px;">
+        @yield('content')
+    </div>
+    <!-- FOOTER -->
+    <footer class="bg-white text-center py-10">
+        &copy; <?= date('Y') ?> - SAKADEV
+    </footer>
+
+</div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.0/alpine.js"></script>
 </body>
 

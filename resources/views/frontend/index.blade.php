@@ -39,7 +39,6 @@
     </div>
   </section>
   <!-- end hero section -->
-
   <!-- about -->
   <section class="relative py-20 bg-white min-w-screen animation-fade animation-delay" id="about">
     <div class="container px-0 px-8 mx-auto sm:px-12 xl:px-5">

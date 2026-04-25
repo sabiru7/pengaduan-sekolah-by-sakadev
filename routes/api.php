@@ -2,45 +2,35 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\{
-    AuthController,
-    PengaduanController,
-    TanggapanController
-};
+use App\Http\Controllers\API\PengaduanController;
+use App\Http\Controllers\API\TanggapanController;
+use App\Http\Controllers\Auth\AuthController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-/*
-    API using JWT for Authorization
-*/
-// Login 
-Route::group(['prefix' => '/v1'], function () {
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/refresh',  [AuthController::class, 'refresh']);
 
-    Route::group(['middleware' => 'jwt.verify', 'rolecheck:user'], function () {
-        // pengaduan
-        Route::put('/pengaduan/{id}', [PengaduanController::class, 'update']); // update pengaduan (jika pengaduan belum di konfirmasi)
-        Route::get('/pengaduan', [PengaduanController::class, 'index']); // search and show all pengaduan
-        Route::get('/pengaduan/{id}', [PengaduanController::class, 'index']); // show detail pengaduan
-        Route::post('/pengaduan', [PengaduanController::class, 'store']); // store pengaduan
-        Route::delete('/pengaduan/{id}', [PengaduanController::class, 'destroy']); // delete pengaduan
-        // tanggapan
-        Route::get('/tanggapan', [TanggapanController::class, 'index']); // all tanggapan
-        Route::get('/tanggapan/pengaduan/{id}', [TanggapanController::class, 'index']); //spesific tanggapan
-        // logout
+Route::prefix('v1')->group(function () {
+
+    // AUTH
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
+
+    Route::middleware(['jwt.verify', 'rolecheck:user'])->group(function () {
+
+        // Pengaduan
+        Route::get('/pengaduan', [PengaduanController::class, 'index']);
+        Route::get('/pengaduan/{id}', [PengaduanController::class, 'show']);
+        Route::post('/pengaduan', [PengaduanController::class, 'store']);
+        Route::put('/pengaduan/{id}', [PengaduanController::class, 'update']);
+        Route::delete('/pengaduan/{id}', [PengaduanController::class, 'destroy']);
+
+        // Tanggapan
+        Route::get('/tanggapan', [TanggapanController::class, 'index']);
+        Route::get('/tanggapan/pengaduan/{id}', [TanggapanController::class, 'byPengaduan']);
+
+        // Logout
         Route::post('/logout', [AuthController::class, 'logout']);
     });
 });
