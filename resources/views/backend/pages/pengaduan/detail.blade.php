@@ -83,13 +83,42 @@
                             <td>Berkas Pendukung</td>
                             <td>:</td>
                             <td>
-                                @if ($laporan->berkas_pendukung)
-                                    {{ $laporan->berkas_pendukung }}
-                                    <a href="{{ asset($laporan->berkas_pendukung) }}" download="{{$laporan->berkas_pendukung}}" class="btn btn-primary"><i class="fas fa-download"></i></a>
-                                @else
-                                Tidak ada berkas
-                                @endif
-                            </td>
+    @if ($laporan->berkas_pendukung)
+        @php
+            $file = $laporan->berkas_pendukung;
+            $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        @endphp
+
+        {{-- Jika gambar --}}
+        @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+            <img src="{{ asset($file) }}" alt="gambar" width="150" class="img-thumbnail">
+            <br>
+            <a href="{{ asset($file) }}" download class="btn btn-primary mt-1">
+                <i class="fas fa-download"></i> Download
+            </a>
+
+        {{-- Jika video --}}
+        @elseif (in_array($ext, ['mp4', 'webm', 'ogg']))
+            <video width="250" controls>
+                <source src="{{ asset($file) }}" type="video/{{ $ext }}">
+                Browser tidak mendukung video.
+            </video>
+            <br>
+            <a href="{{ asset($file) }}" download class="btn btn-primary mt-1">
+                <i class="fas fa-download"></i> Download
+            </a>
+
+        {{-- Jika file lain (pdf, zip, dll) --}}
+        @else
+            <a href="{{ asset($file) }}" class="btn btn-success" download>
+                <i class="fas fa-download"></i> Download Berkas
+            </a>
+        @endif
+
+    @else
+        Tidak ada berkas
+    @endif
+</td>
                         </tr>
                     </table>
                 </div>

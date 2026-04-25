@@ -207,7 +207,7 @@
         padding:10px;
         font-weight:bold;
     ">
-        🤖 AI Assistant
+        AI CUSTOMER SERVICE
     </div>
 
     <!-- CHAT -->
@@ -248,7 +248,7 @@ function toggleChat(){
 
     // greeting pertama
     if (isHidden && firstOpen) {
-        addMsg('well well well. mau dibantu apa untuk pengaduan anda?', 'bot');
+        addMsg('Well well well. AI ini mau bantu apa untuk pengaduan anda?', 'bot');
         firstOpen = false;
     }
 }

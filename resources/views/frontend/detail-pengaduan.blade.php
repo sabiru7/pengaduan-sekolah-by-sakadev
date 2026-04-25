@@ -30,9 +30,38 @@
                                 Tidak ada berkas yang dilampirkan</p>
                         </div>
                         @else
-                        <a href="{{ asset($groupItem->pengaduan->berkas_pendukung) }}" class="text-blue-400"
-                            download="{{$groupItem->pengaduan->berkas_pendukung}}">Download Berkas</i></a>
-                        @endif
+                    @php
+                        $file = $groupItem->pengaduan->berkas_pendukung;
+                        $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                    @endphp
+
+                    {{-- Jika gambar --}}
+                    @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                        <img src="{{ asset($file) }}" alt="gambar" width="150" class="img-thumbnail">
+                        <br>
+                        <a href="{{ asset($file) }}" download class="text-blue-400">
+                            Download Gambar
+                        </a>
+
+                    {{-- Jika video --}}
+                    @elseif (in_array($ext, ['mp4', 'webm', 'ogg']))
+                        <video width="250" controls>
+                            <source src="{{ asset($file) }}" type="video/{{ $ext }}">
+                            Browser tidak mendukung video.
+                        </video>
+                        <br>
+                        <a href="{{ asset($file) }}" download class="text-blue-400">
+                            Download Video
+                        </a>
+
+                    {{-- Jika file lain --}}
+                    @else
+                        <a href="{{ asset($file) }}" class="text-blue-400"
+                            download="{{ $file }}">
+                            Download Berkas
+                        </a>
+                    @endif
+                @endif
                         @if ($groupItem->pengaduan->status === 'pending')
                         <div
                             class="bg-yellow-500 font-semibold text-center mt-4 text-white p-2 rounded  leading-none flex items-center">
